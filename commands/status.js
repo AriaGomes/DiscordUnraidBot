@@ -8,7 +8,9 @@ module.exports = {
   async execute(interaction) {
     const response = await fetch(API_URL + 'getServers');
     let data = await response.json();
-    data = data.servers['https://192-168-1-20.bbcd0582571cd2ef8b7cc59bc12bc8802251ab3a.myunraid.net/'].status;
+    // Grab the first server
+    // Limitation of one server until I write a fully dynamic algorithm
+    data = data.servers[Object.keys(data.servers)[0]].status;
     if (data == 'online') {
       await interaction
           .reply(`API is Online  ${Math.round(interaction.client.ws.ping)}ms`);
